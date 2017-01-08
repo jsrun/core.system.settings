@@ -1,0 +1,165 @@
+/**
+ * Style of settings module
+ * 
+ * @author André Ferreira <andrehrf@gmail.com>
+ * @license MIT
+ */
+
+.wi-settings{
+    position: absolute;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    background: var(--wi-default-bg-color);
+    color: var(--wi-default-color);
+    font-family: var(--wi-default-font-family);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: auto;
+    text-shadow: 0px 1px 0px #464646;
+}
+
+.wi-settings-navbar{
+    -webkit-flex: auto;
+    flex: auto;
+    background-color: var(--wi-default-bg3-color);
+    box-shadow: var(--wi-default-box-shadow);
+    border: var(--wi-default-border);
+    width: 180px;
+    height: 100%;
+}
+
+.wi-settings-navbar-margin{
+    margin-top: 10px;
+}
+
+.wi-settings-contents{
+    background: var(--wi-default-bg2-color);
+    box-shadow: var(--wi-default-box-shadow);
+    border: var(--wi-default-border);
+    border-left: 0px;
+    width: calc(100% - 180px);
+    height: 100%;
+}
+
+.wi-settings-navbar-group{
+    position: relative;
+}
+
+.wi-settings-navbar-group-item{
+    font-weight: bold;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 10px;
+    color: var(--wi-default-color2);
+    padding-left: 0;
+    text-transform: uppercase;
+    padding: 6px 15px 6px 26px;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.wi-settings-navbar-group-item:hover{
+    cursor: pointer;
+    color: var(--wi-default-color);
+    background: var(--wi-default-bg4-color);
+}
+
+.wi-settings-navbar-group-collapse{
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    color: var(--wi-default-color2);
+    z-index: 300;
+}
+
+.wi-settings-navbar-group-item:hover i{
+    color: var(--wi-default-color);
+}
+
+.wi-settings-navbar-subgroup{
+    background-color: var(--wi-default-bg2-color);
+    margin: 10px 0px 0 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    position: relative;
+    padding: 5px;
+    padding-left: 25px;
+    display: none;
+}
+
+.wi-settings-contents-group-active{
+    display: block !important;
+}
+
+.wi-settings-navbar-subgroup a{
+    color: var(--wi-default-color2);
+    text-decoration: none;
+}
+
+.wi-settings-navbar-subgroup a:hover{
+    color: var(--wi-default-color);
+}
+
+.wi-settings-navbar-subgroup-item{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    padding: 3px;
+    cursor: pointer;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.wi-settings-navbar-subgroup-item:hover{
+    background-color: var(--wi-default-bg4-color);
+    margin-right: 10px;
+}
+
+.wi-settings-contents-group{
+    font-family: var(--wi-default-font-family);
+    display: none;
+}
+
+.wi-settings-contents-group h1{
+    font-size: 18px;
+    padding: 15px;
+}
+
+.wi-settings-contents-subgroup{
+    background-color: var(--wi-default-bg2-color);
+}
+
+.wi-settings-contents-subgroup h2{
+    background-color: var(--wi-default-bg3-color);
+    border-top: var(--wi-default-border);
+    border-bottom: var(--wi-default-border);
+    font-size: 15px;
+    padding: 15px;
+}
+
+.wi-settings-contents-item{
+    padding: 15px;
+    padding-bottom: 5px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+.wi-settings-contents-item-description{
+    -webkit-flex: auto;
+    flex: auto;
+    color: var(--wi-default-color2);
+    font-size: 12px;
+    width: 300px;
+}
+
+.wi-settings-contents-item-value{
+    -webkit-flex: auto;
+    flex: auto;
+    width: calc(100% - 300px);
+}

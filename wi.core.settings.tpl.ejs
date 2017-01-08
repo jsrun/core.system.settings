@@ -1,0 +1,157 @@
+<%
+    function parseKey(key){
+        return encodeURI(key).replace(/%20/img, "").replace(/\(/img, "").replace(/\)/img, "")
+    }
+%>
+<div class="wi-settings">
+    <div class="wi-settings-navbar wi-scrollbar">
+        <div class="wi-settings-navbar-margin">
+        <% for(var key in itens) {%>
+            <div class="wi-settings-navbar-group" rel="#<%= parseKey(key) %>">
+                <span class="wi-settings-navbar-group-collapse"><i class="fa fa-caret-right"  aria-hidden="true"></i></span>
+                <div class="wi-settings-navbar-group-item"><%= __(key) %></div>
+                
+                <div class="wi-settings-navbar-subgroup">
+                <% for(var key2 in itens[key].itens) {%>
+                    <a href="#<%= parseKey(key2) %>" class="wi-settings-navbar-link-anchor"><div class="wi-settings-navbar-subgroup-item"><%= __(key2) %></div></a>
+                <% } %>
+                </div>
+            </div>
+        <% } %>
+        </div>
+    </div>
+    
+    <div class="wi-settings-contents">
+        <% for(var key in itens) {%>
+            <div class="wi-settings-contents-group wi-scrollbar" id="<%= parseKey(key) %>">
+                <h1><%= __(key) %></h1>
+                
+                <div class="wi-settings-contents-subgroup">
+                <% for(var key2 in itens[key].itens) {%>
+                    <h2 class="wi-settings-contents-header" id="<%= parseKey(key2) %>"><%= __(key2) %></h2>
+                                        
+                    <% for(var key3 in itens[key].itens[key2]) {%>
+                        <div class="wi-settings-contents-item">
+                            <div class="wi-settings-contents-item-description"><%= __(itens[key].itens[key2][key3].description) %>:</div>
+                            <div class="wi-settings-contents-item-value">
+                                <% 
+                                    //Boolean
+                                    if(itens[key].itens[key2][key3].type == 'boolean'){ 
+                                        var value = userSettings[key3] 
+                                        
+                                        if(value == null)
+                                            value = itens[key].itens[key2][key3].defaultvalue;
+                                %>
+                                    <div class="wi-switch">
+                                        <input id="<%= key3 %>" class="wi-toggle wi-toggle-round" type="checkbox" <%if(value === true || value === "true"){%>checked="checked"<%}%> <%if(itens[key].itens[key2][key3].onchange){%>onchange="<%= itens[key].itens[key2][key3].onchange %>('<%= key3 %>', this.checked)"<%}%> />
+                                        <label for="<%= key3 %>"></label>
+                                    </div>
+                                <% } %>
+                                
+                                <% 
+                                    //Number
+                                    if(itens[key].itens[key2][key3].type == 'number'){ 
+                                        var value = userSettings[key3] 
+                                        
+                                        if(value == null)
+                                            value = itens[key].itens[key2][key3].defaultvalue;
+                                %>
+                                    <div class="wi-spin">
+                                        <span>&ndash;</span>
+                                        <input id="<%= key3 %>" type="number" value="<%= value %>" <%if(itens[key].itens[key2][key3].onchange){%>onchange="<%= itens[key].itens[key2][key3].onchange %>('<%= key3 %>', this.value)"<%}%> />
+                                        <span>+</span>
+                                    </div>                                    
+                                <% } %>
+                                
+                                <% 
+                                    //Text
+                                    if(itens[key].itens[key2][key3].type == 'text'){ 
+                                        var value = userSettings[key3] 
+                                        
+                                        if(value == null)
+                                            value = itens[key].itens[key2][key3].defaultvalue;
+                                %>
+                                    <div class="wi-input">
+                                        <input id="<%= key3 %>" type="text" value="<%= value %>" <%if(itens[key].itens[key2][key3].onchange){%>onchange="<%= itens[key].itens[key2][key3].onchange %>('<%= key3 %>', this.value)"<%}%> />
+                                    </div>                                    
+                                <% } %>
+                                
+                                <% 
+                                    //Password
+                                    if(itens[key].itens[key2][key3].type == 'password'){ 
+                                        var value = userSettings[key3] 
+                                        
+                                        if(value == null)
+                                            value = itens[key].itens[key2][key3].defaultvalue;
+                                %>
+                                    <div class="wi-input">
+                                        <input id="<%= key3 %>" type="password" value="<%= value %>" <%if(itens[key].itens[key2][key3].onchange){%>onchange="<%= itens[key].itens[key2][key3].onchange %>('<%= key3 %>', this.value)"<%}%> />
+                                    </div>                                    
+                                <% } %>
+                                                                
+                                <% 
+                                    //Option
+                                    if(itens[key].itens[key2][key3].type == 'option'){ 
+                                        var options = itens[key].itens[key2][key3].customdisplay.split('|');
+                                        var value = userSettings[key3] 
+                                        
+                                        if(value == null)
+                                            value = itens[key].itens[key2][key3].defaultvalue;
+                                %>
+                                    <div class="wi-select">
+                                        <select id="<%= key3 %>" <%if(itens[key].itens[key2][key3].onchange){%>onchange="<%= itens[key].itens[key2][key3].onchange %>('<%= key3 %>', this.value)"<%}%>>
+                                        <%
+                                                for(var keyOptions in options){
+                                                    var optionParams = options[keyOptions].split(":");
+                                        %>
+                                            <option value="<%= optionParams[0] %>" <%if(value === optionParams[0]){%>selected="selected"<%}%>><%= optionParams[1] %></option>
+                                        <% 
+                                                } 
+                                        %>
+                                        </select>
+                                        <div class="wi-select-arrow"></div>
+                                    </div>
+                                <% 
+                                    } 
+                                %>
+                                
+                                <% 
+                                    //Font Family
+                                    if(itens[key].itens[key2][key3].type == 'fontfamily'){ 
+                                        var value = userSettings[key3];
+                                        var fonts = [{class: "wi-font-georgia", name: "Georgia"}, {class: "wi-font-palatino-linotype", name: "Palatino Linotype"},
+                                                     {class: "wi-font-book-antiqua", name: "Book Antiqua"}, {class: "wi-font-times-new-roman", name: "Times New Roman"},
+                                                     {class: "wi-font-arial", name: "Arial"}, {class: "wi-font-helvetica", name: "Helvetica"},
+                                                     {class: "wi-font-arial-black", name: "Arial Black"}, {class: "wi-font-impact", name: "Impact"},
+                                                     {class: "wi-font-lucida-sans-unicode", name: "Lucida Sans Unicode"}, {class: "wi-font-tahoma", name: "Tahoma"},
+                                                     {class: "wi-font-verdana", name: "Verdana"}, {class: "wi-font-courier-new", name: "Courier New"},
+                                                     {class: "wi-font-lucida-console", name: "Lucida Console"}];
+                                        
+                                        if(value == null)
+                                            value = itens[key].itens[key2][key3].defaultvalue;
+                                %>
+                                    <div class="wi-select">
+                                        <select style="font-family:inherit;" id="<%= key3 %>" <%if(itens[key].itens[key2][key3].onchange){%>onchange="<%= itens[key].itens[key2][key3].onchange %>('<%= key3 %>', this.value)"<%}%>>
+                                            <option value="" <%if(value === ''){%>selected="selected"<%}%>><%= __('Default') %></option>
+                                            
+                                            <optgroup label="<%= __('Standard Fonts') %>">
+                                                <% for(var keyFonts in fonts){ %>
+                                                <option class="<%= fonts[keyFonts].class %>" value="<%= fonts[keyFonts].name %>" <%if(value === fonts[keyFonts].name){%>selected="selected"<%}%>><%= fonts[keyFonts].name %></option>
+                                                <% }  %>
+                                            </optgroup>
+                                        </select>
+                                        <div class="wi-select-arrow"></div>
+                                    </div>
+                                <% 
+                                    } 
+                                %>
+                            </div>
+                        </div>
+                    <% } %>
+                <% } %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+

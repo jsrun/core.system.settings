@@ -1,10 +1,12 @@
 /**
- *  __          __  _    _____ _____  ______ 
- *  \ \        / / | |  |_   _|  __ \|  ____|
- *   \ \  /\  / /__| |__  | | | |  | | |__   
- *    \ \/  \/ / _ \ '_ \ | | | |  | |  __|  
- *     \  /\  /  __/ |_) || |_| |__| | |____ 
- *      \/  \/ \___|_.__/_____|_____/|______|
+ *  __          __  _    _____ _____  ______    _____      _   _   _                 
+ *  \ \        / / | |  |_   _|  __ \|  ____|  / ____|    | | | | (_)                
+ *   \ \  /\  / /__| |__  | | | |  | | |__    | (___   ___| |_| |_ _ _ __   __ _ ___ 
+ *    \ \/  \/ / _ \ '_ \ | | | |  | |  __|    \___ \ / _ \ __| __| | '_ \ / _` / __|
+ *     \  /\  /  __/ |_) || |_| |__| | |____ _ ____) |  __/ |_| |_| | | | | (_| \__ \
+ *      \/  \/ \___|_.__/_____|_____/|______(_)_____/ \___|\__|\__|_|_| |_|\__, |___/
+ *                                                                          __/ |    
+ *                                                                         |___/     
  *                                                                            
  *  @author André Ferreira <andrehrf@gmail.com>
  *  @license MIT
@@ -81,30 +83,29 @@
          * @return void
          */
         setTab: function(id){
-            $("#" + id + " .wi-settings-navbar-group").click(function(){
+            $("#wi-tc-" + id + " .wi-settings-navbar-group").click(function(){
                 //Submenu
-                $("#" + id + " .wi-settings-navbar-subgroup").css("display", "none");
+                $("#wi-tc-" + id + " .wi-settings-navbar-subgroup").css("display", "none");
                 $(".wi-settings-navbar-subgroup", this).css("display", "block");
                 
                 //Collapse
-                $("#" + id + " .wi-settings-navbar-group-collapse i").removeClass("fa-caret-down").addClass("fa-caret-right");
+                $("#wi-tc-" + id + " .wi-settings-navbar-group-collapse i").removeClass("fa-caret-down").addClass("fa-caret-right");
                 $(".wi-settings-navbar-group-collapse i", this).removeClass("fa-caret-right").addClass("fa-caret-down");
                 
                 //Contents
-                $("#" + id + " .wi-settings-contents-group-active").removeClass("wi-settings-contents-group-active");
+                $("#wi-tc-" + id + " .wi-settings-contents-group-active").removeClass("wi-settings-contents-group-active");
                 $($(this).attr("rel")).addClass("wi-settings-contents-group-active");
             });
             
-            $("#" + id + " .wi-settings-navbar-link-anchor").click(function(e){
-                e.preventDefault();
-                $("#" + id + " .wi-settings-contents-group-active").mCustomScrollbar("scrollTo", $.attr(this, 'href'));                
+            $("#wi-tc-" + id + " .wi-settings-navbar-link-anchor").click(function(e){
+                e.preventDefault();            
                 return false;
             });
             
             //Active first group
-            $("#" + id + " .wi-settings-navbar-subgroup:first").css("display", "block");
-            $("#" + id + " .wi-settings-navbar-group-collapse i:first").removeClass("fa-caret-right").addClass("fa-caret-down");
-            $("#" + id + " .wi-settings-contents-group:first").addClass("wi-settings-contents-group-active");
+            $("#wi-tc-" + id + " .wi-settings-navbar-subgroup:first").css("display", "block");
+            $("#wi-tc-" + id + " .wi-settings-navbar-group-collapse i:first").removeClass("fa-caret-right").addClass("fa-caret-down");
+            $("#wi-tc-" + id + " .wi-settings-contents-group:first").addClass("wi-settings-contents-group-active");
         }
     };    
 })();

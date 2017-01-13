@@ -27,6 +27,19 @@
         },
         
         /**
+         * Function to change WebIDE theme
+         * 
+         * @param string key
+         * @param mixed value
+         * @return void
+         */
+        setTheme: function(key, value){
+            var now = new Date().getTime();
+            webide.settings.set(key, value);
+            $("#themestyle").attr("href", "./" + value + "/style.css?" + now);
+        },
+        
+        /**
          * Function to get settings value
          * 
          * @param string key

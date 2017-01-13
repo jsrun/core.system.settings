@@ -64,11 +64,25 @@ module.exports = {
     
     /**
      * Function to get settings value
+     * 
      * @param string key
      * @return mixed|null
      */
     get: function(key){
         return (this.has(key)) ? this.list[key] : null;
+    },
+    
+    /**
+     * Function to get user settings value
+     * 
+     * @param string|number _id
+     * @return string 
+     */
+    getUser: function(_this, _id, key, defaultValue, cb){
+        _this.mongodb.collection("users").findOne({_id: _id}, {"settings.theme": 1}, (err, result) => {
+            if(typeof cb == "function")
+                cb((result.settings.theme) ? result.settings.theme : defaultValue);
+        });
     },
     
     /**
@@ -109,11 +123,14 @@ module.exports = {
         let __this = this;
         
         _this.app.get("/settings", (req, res) => { 
-            _this.mongodb.collection("users").findById(req.user._id, function(err, user){
+            let _id = (req.user) ? req.user._id : 0;
+            
+            _this.mongodb.collection("users").findById(_id, function(err, user){
                 let userSettings = {};
                 
-                for(let keyUserSettings in user.settings)
-                    userSettings[keyUserSettings.replace(/_/img, ".")] = user.settings[keyUserSettings];
+                if(user)
+                    for(let keyUserSettings in user.settings)
+                        userSettings[keyUserSettings.replace(/_/img, ".")] = user.settings[keyUserSettings];
                                                 
                 res.render(__dirname + "/wi.core.settings.tpl.ejs", {itens: __this.menu, settings: __this, userSettings: userSettings, __: _this.i18n.__}); 
             });
@@ -123,7 +140,8 @@ module.exports = {
             let set = {};
             set["settings." + req.body.key.replace(/\./img, "_")] = req.body.value;
             
-            _this.mongodb.collection("users").update({_id: req.user._id}, {$set: set}, (err, result) => {
+            let _id = (req.user) ? req.user._id : 0;            
+            _this.mongodb.collection("users").update({_id: _id}, {$set: set}, {upsert: true}, (err, result) => {
                 if(err) res.status(500).send(err);             
                 else res.status(204).send(result); 
             });

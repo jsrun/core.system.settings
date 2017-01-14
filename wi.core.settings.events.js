@@ -83,29 +83,29 @@
          * @return void
          */
         setTab: function(id){
-            $("#wi-tc-" + id + " .wi-settings-navbar-group").click(function(){
+            $(".wi-settings-navbar-group").click(function(){
                 //Submenu
-                $("#wi-tc-" + id + " .wi-settings-navbar-subgroup").css("display", "none");
+                $(" .wi-settings-navbar-subgroup").css("display", "none");
                 $(".wi-settings-navbar-subgroup", this).css("display", "block");
                 
                 //Collapse
-                $("#wi-tc-" + id + " .wi-settings-navbar-group-collapse i").removeClass("fa-caret-down").addClass("fa-caret-right");
+                $(" .wi-settings-navbar-group-collapse i").removeClass("fa-caret-down").addClass("fa-caret-right");
                 $(".wi-settings-navbar-group-collapse i", this).removeClass("fa-caret-right").addClass("fa-caret-down");
                 
                 //Contents
-                $("#wi-tc-" + id + " .wi-settings-contents-group-active").removeClass("wi-settings-contents-group-active");
+                $(" .wi-settings-contents-group-active").removeClass("wi-settings-contents-group-active");
                 $($(this).attr("rel")).addClass("wi-settings-contents-group-active");
             });
             
-            $("#wi-tc-" + id + " .wi-settings-navbar-link-anchor").click(function(e){
+            $(".wi-settings-navbar-link-anchor").click(function(e){
                 e.preventDefault();            
                 return false;
             });
             
             //Active first group
-            $("#wi-tc-" + id + " .wi-settings-navbar-subgroup:first").css("display", "block");
-            $("#wi-tc-" + id + " .wi-settings-navbar-group-collapse i:first").removeClass("fa-caret-right").addClass("fa-caret-down");
-            $("#wi-tc-" + id + " .wi-settings-contents-group:first").addClass("wi-settings-contents-group-active");
+            $(".wi-settings-navbar-subgroup:first").css("display", "block");
+            $(".wi-settings-navbar-group-collapse i:first").removeClass("fa-caret-right").addClass("fa-caret-down");
+            $(".wi-settings-contents-group:first").addClass("wi-settings-contents-group-active");
         }
     };    
 })();

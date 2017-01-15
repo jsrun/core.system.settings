@@ -81,9 +81,12 @@ module.exports = {
      * @return string 
      */
     getUser: function(_this, _id, key, defaultValue, cb){
-        _this.mongodb.collection("users").findOne({_id: _id}, {"settings.theme": 1}, (err, result) => {
+        _this.mongodb.collection("users").findOne({_id: _id}, (err, result) => {
+            for(let keyUserSettings in result.settings)
+                result.settings[keyUserSettings.replace(/_/img, ".")] = result.settings[keyUserSettings];
+                
             if(typeof cb == "function")
-                cb((result.settings.theme) ? result.settings.theme : defaultValue);
+                cb((result.settings.theme) ? result.settings.theme : defaultValue, result.settings);
         });
     },
     
@@ -106,6 +109,7 @@ module.exports = {
         if(typeof this.menu[group].itens[subgroup] !== "object")
             this.menu[group].itens[subgroup] = {};
         
+        this.set(key, defaultvalue);
         this.menu[group].itens[subgroup][key] = {
             description: description,
             type: type,
@@ -150,5 +154,15 @@ module.exports = {
         });
         
         return this;
+    },
+    
+    /**
+     * Function to generate template
+     * 
+     * @param object _this
+     * @return string
+     */
+    getTemplate: function(_this){
+        return TemplateEngine(__dirname + "/wi.core.settings.map.ejs").seti18n(_this.i18n).render({settings: JSON.stringify(this.list)});
     }
 };

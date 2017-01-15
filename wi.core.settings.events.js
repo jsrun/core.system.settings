@@ -17,6 +17,18 @@
 (function(){
     webide.settings = {
         /**
+         * Default values
+         * @type object
+         */
+        map: webide.settings.map,
+        
+        /**
+         * User values
+         * @type object
+         */
+        usermap: webide.settings.usermap,
+        
+        /**
          * Function to set settings value
          * 
          * @param string key
@@ -25,6 +37,7 @@
          */
         set: function(key, value){
             localStorage.setItem(key, value);
+            webide.settings.usermap[key] = value;
             webide.send("/settings", {key: key, value: value});
         },
         
@@ -48,7 +61,7 @@
          * @return mixed|null
          */
         get: function(key){
-            return localStorage.getItem(key);
+            return localStorage.getItem(key) || webide.settings.usermap[key] || webide.settings.map[key];
         },
         
         /**

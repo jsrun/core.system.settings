@@ -6,7 +6,8 @@
     \  /\  /  __/ |_) || |_| |__| | |____ _ ____) |  __/ |_| |_| | | | | (_| \__ \
      \/  \/ \___|_.__/_____|_____/|______(_)_____/ \___|\__|\__|_|_| |_|\__, |___/
                                                                          __/ |    
-                                                                        |___/                                                                                                                                                                                                                                                                                                                                
+                                                                        |___/     
+                                                                                                                                                                                                                                                                                                                           
 ```                                                                                                                                                 
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jsrun/core.system.settings/master/LICENSE)

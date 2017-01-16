@@ -15,6 +15,7 @@
 "use strict";
 
 let _ = require("lodash"),
+    path = require("path"),
     TemplateEngine = require("../wi.core.template.js");
 
 module.exports = {
@@ -117,6 +118,37 @@ module.exports = {
             customdisplay: customdisplay,
             onchange: onchange
         };
+    },
+    
+    addAtomConfigSchema: function(configSchema, filename, ext, namespace){
+        for(let key in configSchema){
+            var options = null;
+
+            switch(configSchema[key].type){
+                case "string": 
+                    if(typeof configSchema[key].enum == "object"){
+                        options = "";
+
+                        for(let keyEnum in configSchema[key].enum)
+                            options += configSchema[key].enum[keyEnum]+":"+configSchema[key].enum[keyEnum]+"|";
+
+                        options = options.substr(0, options.length-1);                                        
+                        var type = "option"; 
+                    }
+                    else{
+                        var type = "text"; 
+                    }
+                break;
+                case "integer": var type = "number"; break;
+                case "boolean": var type = "boolean"; break;
+                default: var type = "text"; break;
+            }    
+
+            try{
+                this.addSettingItem("Atom", path.basename(filename, ext), namespace + "." + key, configSchema[key].title, type, configSchema[key].default, options, "webide.atom.setAtomConfig");
+            }
+            catch(e) { console.log(e.message);  }
+        }
     },
     
     /**

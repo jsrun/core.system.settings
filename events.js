@@ -20,13 +20,13 @@
          * Default values
          * @type object
          */
-        map: webide.settings.map,
+        map: {},
         
         /**
          * User values
          * @type object
          */
-        usermap: webide.settings.usermap,
+        usermap: {},
         
         /**
          * Function to set settings value

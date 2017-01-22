@@ -30,16 +30,7 @@ module.exports = {
      * @type object
      */
     menu: {},
-    
-    /**
-     * List module assets
-     * @type object
-     */
-    assets: {
-        css: [__dirname + "/wi.core.settings.style.css"],
-        js: [__dirname + "/wi.core.settings.events.js"]
-    },
-    
+        
     /**
      * Function to set settings value
      * @param string key
@@ -83,11 +74,15 @@ module.exports = {
      */
     getUser: function(_this, _id, key, defaultValue, cb){
         _this.mongodb.collection("users").findOne({_id: _id}, (err, result) => {
-            for(let keyUserSettings in result.settings)
-                result.settings[keyUserSettings.replace(/_/img, ".")] = result.settings[keyUserSettings];
+            try{
+                for(let keyUserSettings in result.settings)
+                    result.settings[keyUserSettings.replace(/_/img, ".")] = result.settings[keyUserSettings];
+            
                 
-            if(typeof cb == "function")
-                cb((result.settings.theme) ? result.settings.theme : defaultValue, result.settings);
+                if(typeof cb == "function")
+                    cb((result.settings.theme) ? result.settings.theme : defaultValue, result.settings);
+            }
+            catch(e){ cb(defaultValue, null); }
         });
     },
     
@@ -177,7 +172,7 @@ module.exports = {
                     for(let keyUserSettings in user.settings)
                         userSettings[keyUserSettings.replace(/_/img, ".")] = user.settings[keyUserSettings];
                                                 
-                res.render(__dirname + "/wi.core.settings.tpl.ejs", {itens: __this.menu, settings: __this, userSettings: userSettings, __: _this.i18n.__}); 
+                res.render(__dirname + "/template.ejs", {itens: __this.menu, settings: __this, userSettings: userSettings, __: _this.i18n.__}); 
             });
         });
         
@@ -202,6 +197,6 @@ module.exports = {
      * @return string
      */
     getTemplate: function(_this){
-        return TemplateEngine(__dirname + "/wi.core.settings.map.ejs").seti18n(_this.i18n).render({settings: JSON.stringify(this.list)});
+        return TemplateEngine(__dirname + "/map.ejs").seti18n(_this.i18n).render({settings: JSON.stringify(this.list)});
     }
 };

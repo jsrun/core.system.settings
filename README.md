@@ -10,7 +10,7 @@
                                                                                                                                                                                                                                                                                                                            
 ```                                                                                                                                                 
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jsrun/core.system.settings/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jsrun/wi.core.settings/master/LICENSE)
 
 WebIDE configuration manager
  

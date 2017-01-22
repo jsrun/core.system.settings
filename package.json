@@ -1,0 +1,15 @@
+{
+    "name": "wi.core.settings",
+    "version": "0.2.1",
+    "description": "WebIDE configuration manager",
+    "author": "André Ferreira <andrehrf@gmail.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jsrun/wi.core.settings"
+    },
+    "bugs": {
+        "url": "https://github.com/jsrun/wi.core.settings/issues"
+    },
+    "homepage": "https://github.com/jsrun/wi.core.settings"
+}

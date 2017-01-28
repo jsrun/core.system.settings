@@ -14,8 +14,8 @@
 
 "use strict";
 
-(function(){
-    webide.settings = {
+webide.module("settings", function(forms){
+    this.extends("settings", {
         /**
          * Default values
          * @type object
@@ -137,6 +137,7 @@
             $(".wi-settings-navbar-subgroup:first").css("display", "block");
             $(".wi-settings-navbar-group-collapse i:first").removeClass("fa-caret-right").addClass("fa-caret-down");
             $(".wi-settings-contents-group:first").addClass("wi-settings-contents-group-active");
+            forms.bind();
         }
-    };    
-})();
+    });    
+});

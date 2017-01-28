@@ -22,7 +22,7 @@
     height: 100%;
     overflow: auto;
     margin: auto;
-    text-shadow: 0px 1px 0px #464646;
+    text-shadow: var(--wi-default-text-shadow);
     background: var(--wi-default-bg3-color);
     color: var(--wi-default-color);
     font-family: var(--wi-default-font-family);

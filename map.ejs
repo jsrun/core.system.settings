@@ -18,7 +18,7 @@
     "use strict";
 
     webide.onload(function(){        
-        webide.settings.map = <%- settings %>;
-        webide.settings.usermap = <%%- userSettings %%>;
+        webide.settings.assignMap("map", <%- settings %>);
+        webide.settings.assignMap("usermap", <%%- userSettings %%>);
     });
 </script>

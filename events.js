@@ -42,6 +42,24 @@
         },
         
         /**
+         * Function to associate existing map
+         * 
+         * @param object map
+         * @return void
+         */
+        assignMap: function(mapname, map){
+            for(var key in map){
+                if(!this[mapname][key]){
+                    this[mapname][key] = map[key];
+                }
+                else{
+                    for(var key2 in map[mapname][key])
+                        this.map[mapname][key][key2] = map[key][key2];
+                }
+            }
+        },
+        
+        /**
          * Function to change WebIDE theme
          * 
          * @param string key

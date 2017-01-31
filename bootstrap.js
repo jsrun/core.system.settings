@@ -152,42 +152,38 @@ module.exports = {
      * @param object app
      * @return this
      */
-    bootstrap: function(_this){ 
-        let __this = this;
-        
-        _this.settings.addSettingItem("WebIDE", "Theme", "theme", "WebIDE Theme", "option", "default", "default:Default|c9:Cloud9|light:Light", "webide.settings.setTheme");
-        _this.settings.addSettingItem("WebIDE", "Theme", "ace.editor.theme", "Editor Theme", "option", "twilight", "ambiance:Ambiance|chaos:Chaos|chrome:Chrome|clouds:Clouds|clouds_midnight:Clouds Midnight|cobalt:Cobalt|crimson_editor:Crimson Editor|dawn:Dawn|dreamweaver:Dreamweaver|eclipse:Eclipse|github:Github|idle_fingers:idle Fingers|iplastic:IPlastic|katzenmilch:KatzenMilch|kr_theme:krTheme|kuroir:Kuroir|merbivore:Merbivore|merbivore_soft:Merbivore Soft|mono_industrial:Mono Industrial|monokai:Monokai|pastel_on_dark:Pastel on dark|solarized_dark:Solarized Dark|solarized_light:Solarized Light|sqlserver:SQL Server|terminal:Terminal|textmate:TextMate|tomorrow:Tomorrow|tomorrow_night:Tomorrow Night|tomorrow_night_blue:Tomorrow Night Blue|tomorrow_night_bright:Tomorrow Night Bright|tomorrow_night_eighties:Tomorrow Night 80s|twilight:Twilight|vibrant_ink:Vibrant Ink|xcode:XCode", "webide.settings.setAceEditorTheme");
+    bootstrap: function(navbar, app, i18n, mongodb, settings){         
+        settings.addSettingItem("WebIDE", "Theme", "theme", "WebIDE Theme", "option", "default", "default:Default|c9:Cloud9|light:Light", "webide.settings.setTheme");
+        settings.addSettingItem("WebIDE", "Theme", "ace.editor.theme", "Editor Theme", "option", "twilight", "ambiance:Ambiance|chaos:Chaos|chrome:Chrome|clouds:Clouds|clouds_midnight:Clouds Midnight|cobalt:Cobalt|crimson_editor:Crimson Editor|dawn:Dawn|dreamweaver:Dreamweaver|eclipse:Eclipse|github:Github|idle_fingers:idle Fingers|iplastic:IPlastic|katzenmilch:KatzenMilch|kr_theme:krTheme|kuroir:Kuroir|merbivore:Merbivore|merbivore_soft:Merbivore Soft|mono_industrial:Mono Industrial|monokai:Monokai|pastel_on_dark:Pastel on dark|solarized_dark:Solarized Dark|solarized_light:Solarized Light|sqlserver:SQL Server|terminal:Terminal|textmate:TextMate|tomorrow:Tomorrow|tomorrow_night:Tomorrow Night|tomorrow_night_blue:Tomorrow Night Blue|tomorrow_night_bright:Tomorrow Night Bright|tomorrow_night_eighties:Tomorrow Night 80s|twilight:Twilight|vibrant_ink:Vibrant Ink|xcode:XCode", "webide.settings.setAceEditorTheme");
 
-        _this.navbar.addItem("Tools/Settings...", {
+        navbar.addItem("Tools/Settings...", {
             onclick: "webide.tabs.add('Settings', '/settings', 'url', null, function(id){ webide.settings.setTab(id); })"
         }, 1000);
         
-        _this.app.get("/settings", (req, res) => { 
+        app.get("/settings", (req, res) => { 
             let _id = (req.user) ? req.user._id : 0;
             
-            _this.mongodb.collection("users").findById(_id, function(err, user){
+            mongodb.collection("users").findById(_id, function(err, user){
                 let userSettings = {};
                 
                 if(user)
                     for(let keyUserSettings in user.settings)
                         userSettings[keyUserSettings.replace(/_/img, ".")] = user.settings[keyUserSettings];
                                                 
-                res.render(__dirname + "/template.ejs", {itens: __this.menu, settings: __this, userSettings: userSettings, __: _this.i18n.__}); 
+                res.render(__dirname + "/template.ejs", {itens: settings.menu, settings: settings, userSettings: userSettings, __: i18n.__}); 
             });
         });
         
-        _this.app.post("/settings", (req, res) => {
+        app.post("/settings", (req, res) => {
             let set = {};
             set["settings." + req.body.key.replace(/\./img, "_")] = req.body.value;
             
             let _id = (req.user) ? req.user._id : 0;            
-            _this.mongodb.collection("users").update({_id: _id}, {$set: set}, {upsert: true}, (err, result) => {
+            mongodb.collection("users").update({_id: _id}, {$set: set}, {upsert: true}, (err, result) => {
                 if(err) res.status(500).send(err);             
                 else res.status(204).send(result); 
             });
         });
-        
-        return this;
     },
     
     /**
@@ -196,7 +192,7 @@ module.exports = {
      * @param object _this
      * @return string
      */
-    getTemplate: function(_this){
-        return TemplateEngine(__dirname + "/map.ejs").seti18n(_this.i18n).render({settings: JSON.stringify(this.list)});
+    getTemplate: function(i18n, settings){
+        return TemplateEngine(__dirname + "/map.ejs").seti18n(i18n).render({settings: JSON.stringify(settings.list)});
     }
 };

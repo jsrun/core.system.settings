@@ -15,8 +15,7 @@
 "use strict";
 
 let _ = require("lodash"),
-    path = require("path"),
-    TemplateEngine = require("../wi.core.template.js");
+    path = require("path");
 
 module.exports = {
     /**
@@ -41,7 +40,7 @@ module.exports = {
         if(typeof key == "string")
             this.list[key] = value;
         else
-            throw new SystemException("The default value for key settings items is 'string'.");
+            throw new "The default value for key settings items is 'string'.";
         
         return this;
     },
@@ -115,6 +114,15 @@ module.exports = {
         };
     },
     
+    /**
+     * Atom compatibility functions
+     *  
+     * @param object configSchema
+     * @param string filename
+     * @param string ext
+     * @param string namespace
+     * @return void
+     */
     addAtomConfigSchema: function(configSchema, filename, ext, namespace){
         for(let key in configSchema){
             var options = null;
@@ -192,7 +200,7 @@ module.exports = {
      * @param object _this
      * @return string
      */
-    getTemplate: function(i18n, settings){
-        return TemplateEngine(__dirname + "/map.ejs").seti18n(i18n).render({settings: JSON.stringify(settings.list)});
+    getTemplate: function(i18n, settings, template){
+        return new template(__dirname + "/map.ejs").seti18n(i18n).render({settings: JSON.stringify(settings.list)});
     }
 };

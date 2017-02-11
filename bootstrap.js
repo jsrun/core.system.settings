@@ -166,7 +166,7 @@ module.exports = {
 
         navbar.addItem("Tools/Settings...", {
             onclick: "webide.tabs.add('Settings', '/settings', 'url', null, function(id){ webide.settings.setTab(id); })"
-        }, 1000);
+        }, 2000);
         
         app.get("/settings", (req, res) => { 
             let _id = (req.user) ? req.user._id : 0;

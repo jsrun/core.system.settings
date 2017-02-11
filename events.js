@@ -116,20 +116,21 @@ webide.module("settings", function(forms){
         setTab: function(id){
             $(".wi-settings-navbar-group").click(function(){
                 //Submenu
-                $(" .wi-settings-navbar-subgroup").css("display", "none");
+                $(".wi-settings-navbar-subgroup").css("display", "none");
                 $(".wi-settings-navbar-subgroup", this).css("display", "block");
                 
                 //Collapse
-                $(" .wi-settings-navbar-group-collapse i").removeClass("fa-caret-down").addClass("fa-caret-right");
+                $(".wi-settings-navbar-group-collapse i").removeClass("fa-caret-down").addClass("fa-caret-right");
                 $(".wi-settings-navbar-group-collapse i", this).removeClass("fa-caret-right").addClass("fa-caret-down");
                 
                 //Contents
-                $(" .wi-settings-contents-group-active").removeClass("wi-settings-contents-group-active");
+                $(".wi-settings-contents-group-active").removeClass("wi-settings-contents-group-active");
                 $($(this).attr("rel")).addClass("wi-settings-contents-group-active");
             });
             
             $(".wi-settings-navbar-link-anchor").click(function(e){
-                e.preventDefault();            
+                e.preventDefault();  
+                $('.wi-settings').animate({scrollTop: $($.attr(this, 'href')).offset().top}, 500);    
                 return false;
             });
             
